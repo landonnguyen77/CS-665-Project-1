@@ -1,7 +1,8 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 from . import db
 from . import auth
+from . import tables
 
 def create_app(test_confige=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -22,7 +23,7 @@ def create_app(test_confige=None):
 
     @app.route('/')
     def index():
-        return 'Welcome to Flaskr!'
+        return render_template('index.html')
 
     @app.route('/hello')
     def hello():
@@ -30,6 +31,7 @@ def create_app(test_confige=None):
 
     db.init_app(app)
     app.register_blueprint(auth.bp)
+    app.register_blueprint(tables.bp)
 
     return app
     

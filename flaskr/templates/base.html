@@ -14,10 +14,17 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    {% if g.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('tables.index') }}">Tables</a>
+                        </li>
+                    {% endif %}
+                </ul>
                 <ul class="navbar-nav ms-auto">
                     {% if g.user %}
                         <li class="nav-item">
-                            <span class="navbar-text me-3">Hello, {{ g.user['Username'] }}</span>
+                            <span class="nav-link">Hello, {{ g.user['Username'] }}</span>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>

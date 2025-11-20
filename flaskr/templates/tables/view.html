@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ table_name }} - Table Data{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>{{ table_name }}</h1>
+    <a href="{{ url_for('tables.index') }}" class="btn btn-secondary">Back to Tables</a>
+</div>
+
+{% if rows %}
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                {% for column in columns %}
+                <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                {% for column in columns %}
+                <td>{{ row[column] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<p class="text-muted">Total rows: {{ rows|length }}</p>
+{% else %}
+<div class="alert alert-info">
+    No data found in this table.
+</div>
+{% endif %}
+{% endblock %}
