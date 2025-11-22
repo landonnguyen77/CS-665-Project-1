@@ -5,7 +5,10 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1>{{ table_name }}</h1>
-    <a href="{{ url_for('tables.index') }}" class="btn btn-secondary">Back to Tables</a>
+    <div>
+        <a href="{{ url_for('tables.create', table_name=table_name) }}" class="btn btn-success me-2">Add New Record</a>
+        <a href="{{ url_for('tables.index') }}" class="btn btn-secondary">Back to Tables</a>
+    </div>
 </div>
 
 {% if rows %}
