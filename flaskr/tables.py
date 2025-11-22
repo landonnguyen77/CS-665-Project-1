@@ -206,3 +206,27 @@ def edit(table_name, record_id):
                           schema=schema,
                           record=record,
                           pk_column=pk_column)
+
+@bp.route('/<table_name>/delete/<int:record_id>', methods=('POST',))
+@login_required
+def delete(table_name, record_id):
+    """Delete a record from the table"""
+    if table_name not in TABLES:
+        abort(404)
+
+    pk_column = get_primary_key(table_name)
+
+    if not pk_column:
+        flash('Cannot delete: No primary key found for this table.', 'danger')
+        return redirect(url_for('tables.view_table', table_name=table_name))
+
+    db = get_db()
+
+    try:
+        db.execute(f'DELETE FROM {table_name} WHERE {pk_column} = ?', (record_id,))
+        db.commit()
+        flash(f'Successfully deleted record from {table_name}!', 'success')
+    except db.IntegrityError as e:
+        flash(f'Cannot delete: {str(e)}', 'danger')
+
+    return redirect(url_for('tables.view_table', table_name=table_name))

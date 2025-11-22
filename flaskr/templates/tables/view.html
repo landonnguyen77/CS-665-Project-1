@@ -30,7 +30,10 @@
                 {% endfor %}
                 <td>
                     {% if pk_column %}
-                    <a href="{{ url_for('tables.edit', table_name=table_name, record_id=row[pk_column]) }}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{{ url_for('tables.edit', table_name=table_name, record_id=row[pk_column]) }}" class="btn btn-sm btn-warning me-1">Edit</a>
+                    <form method="post" action="{{ url_for('tables.delete', table_name=table_name, record_id=row[pk_column]) }}" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this record?');">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
                     {% endif %}
                 </td>
             </tr>
