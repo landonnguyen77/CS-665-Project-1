@@ -19,6 +19,7 @@
                 {% for column in columns %}
                 <th>{{ column }}</th>
                 {% endfor %}
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,11 @@
                 {% for column in columns %}
                 <td>{{ row[column] }}</td>
                 {% endfor %}
+                <td>
+                    {% if pk_column %}
+                    <a href="{{ url_for('tables.edit', table_name=table_name, record_id=row[pk_column]) }}" class="btn btn-sm btn-warning">Edit</a>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
